@@ -69,12 +69,8 @@ export const HistoryItem = ({
   },
   handleClaimError,
 }) => {
-  const {
-    foreignChainId,
-    getBridgeChainId,
-    getMonitorUrl,
-    enableForeignCurrencyBridge,
-  } = useBridgeDirection();
+  const { foreignChainId, getBridgeChainId, enableForeignCurrencyBridge } =
+    useBridgeDirection();
   const bridgeChainId = getBridgeChainId(chainId);
 
   const timestampString = new Date(

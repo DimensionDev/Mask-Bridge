@@ -47,7 +47,12 @@ export const TransferButton = () => {
     toToken.chainId === foreignChainId &&
     toToken.address === ADDRESS_ZERO;
   const buttonEnabled =
-    allowed && !isRebaseToken && !showReverseBridgeWarning && !toAmountLoading;
+    allowed &&
+    !isRebaseToken &&
+    !showReverseBridgeWarning &&
+    !toAmountLoading &&
+    amount &&
+    amount.gte(balance);
 
   const valid = useCallback(() => {
     if (!ethersProvider) {

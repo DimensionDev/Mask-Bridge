@@ -8,14 +8,18 @@ import { useSettings } from 'contexts/SettingsContext';
 import { useWeb3Context } from 'contexts/Web3Context';
 import { useBridgeDirection } from 'hooks/useBridgeDirection';
 import React, { useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export const Layout = ({ children }) => {
   const { foreignChainId } = useBridgeDirection();
   const { account, providerChainId } = useWeb3Context();
   const { queryToken } = useSettings();
+  const location = useLocation();
 
   const isQueryChainProvided =
     queryToken === null || providerChainId === queryToken.chainId;
+
+  const bridgeSelectorVisible = location.pathname === '/bridge';
 
   const valid = useMemo(
     () =>
@@ -48,7 +52,7 @@ export const Layout = ({ children }) => {
         h="100%"
         position="relative"
       >
-        {account ? (
+        {account && bridgeSelectorVisible ? (
           <Flex maxW="75rem" w="100%" justifyContent="flex-end" p="1rem">
             <BridgeDropdown />
           </Flex>

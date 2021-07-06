@@ -95,8 +95,6 @@ export const ConfirmTransferModal = ({ isOpen, onClose }) => {
   const fromUnit = fromToken.symbol;
   const toAmt = formatValue(toAmount, toToken.decimals);
   const toUnit = toToken.symbol;
-  const currentGasPrice = getGasPrice();
-  const medianGasPrice = getMedianHistoricalEthGasPrice();
 
   const isERC20Dai =
     !!fromToken &&

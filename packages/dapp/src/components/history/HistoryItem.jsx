@@ -196,6 +196,7 @@ export const HistoryItem = ({
           <Link
             color="blue.500"
             href={`${getExplorerUrl(chainId)}/tx/${sendingTx}`}
+            title={sendingTx}
             rel="noreferrer noopener"
             target="_blank"
             my="auto"

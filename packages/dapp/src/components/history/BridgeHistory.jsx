@@ -1,7 +1,6 @@
 import { Checkbox, Flex, Grid, Text } from '@chakra-ui/react';
 import { HistoryItem } from 'components/history/HistoryItem';
 import { HistoryPagination } from 'components/history/HistoryPagination';
-import { ManualClaim } from 'components/history/ManualClaim';
 import { NoHistory } from 'components/history/NoHistory';
 import { ClaimErrorModal } from 'components/modals/ClaimErrorModal';
 import { LoadingModal } from 'components/modals/LoadingModal';
@@ -84,7 +83,6 @@ export const BridgeHistory = ({ page }) => {
         />
       )}
       <GraphHealthWarning />
-      <ManualClaim handleClaimError={handleClaimError} />
       <Flex justify="space-between" align="center" mb={4}>
         <Text fontSize="xl" fontWeight="bold">
           History

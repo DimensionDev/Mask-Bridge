@@ -52,7 +52,7 @@ export const TransferButton = () => {
     !showReverseBridgeWarning &&
     !toAmountLoading &&
     amount &&
-    amount.gte(balance);
+    amount.lte(balance);
 
   const valid = useCallback(() => {
     if (!ethersProvider) {

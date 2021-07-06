@@ -19,7 +19,7 @@ export const Layout = ({ children }) => {
   const isQueryChainProvided =
     queryToken === null || providerChainId === queryToken.chainId;
 
-  const bridgeSelectorVisible = location.pathname === '/bridge';
+  const bridgeSelectorVisible = account && location.pathname === '/bridge';
 
   const valid = useMemo(
     () =>
@@ -52,12 +52,14 @@ export const Layout = ({ children }) => {
         h="100%"
         position="relative"
       >
-        {account && bridgeSelectorVisible ? (
-          <Flex maxW="75rem" w="100%" justifyContent="flex-end" p="1rem">
-            <BridgeDropdown />
-          </Flex>
-        ) : null}
-        {valid ? children : <ConnectWeb3 />}
+        <Flex direction="column">
+          {bridgeSelectorVisible ? (
+            <Flex maxW="75rem" w="100%" justifyContent="flex-end" p="1rem">
+              <BridgeDropdown />
+            </Flex>
+          ) : null}
+          {valid ? children : <ConnectWeb3 />}
+        </Flex>
       </Flex>
       <Footer />
       <TermsOfServiceModal />

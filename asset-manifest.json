@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/Mask-Bridge/static/js/main.fa04fa86.chunk.js",
+    "main.js": "/Mask-Bridge/static/js/main.ba247572.chunk.js",
     "runtime-main.js": "/Mask-Bridge/static/js/runtime-main.f4c0ea3f.js",
     "static/js/2.8a79c13d.chunk.js": "/Mask-Bridge/static/js/2.8a79c13d.chunk.js",
     "index.html": "/Mask-Bridge/index.html",
@@ -23,6 +23,6 @@
   "entrypoints": [
     "static/js/runtime-main.f4c0ea3f.js",
     "static/js/2.8a79c13d.chunk.js",
-    "static/js/main.fa04fa86.chunk.js"
+    "static/js/main.ba247572.chunk.js"
   ]
 }

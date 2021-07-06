@@ -56,15 +56,15 @@ export const TermsOfServiceModal = () => {
                 We’re launching our Mask Bridge and our UI App on a beta-testing
                 basis. While we’ve worked long and hard to develop the core
                 features of the software, we expect that our users may detect
-                bugs and other issues. Help us improve by posting any
-                difficulties to our{' '}
+                bugs and other issues. Help us improve our service by posting on
+                our forum at{' '}
                 <Link
                   as="a"
-                  href="https://forum.poa.network/c/tokenbridge/tokenbridge-support/"
+                  href="https://we.mask.io"
                   color="blue.500"
                   isExternal
                 >
-                  support page
+                  https://we.mask.io
                 </Link>
                 .
               </Text>

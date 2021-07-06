@@ -9,7 +9,6 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import RightArrowImage from 'assets/right-arrow.svg';
-import { AddToMetamask } from 'components/common/AddToMetamask';
 import { BigNumber, utils } from 'ethers';
 import { useBridgeDirection } from 'hooks/useBridgeDirection';
 import { useClaim } from 'hooks/useClaim';
@@ -105,7 +104,7 @@ export const HistoryItem = ({
   if (claimed && txHash) {
     receivingTx = txHash;
   }
-  const failed = !!inputReceivingTx && status === false;
+  const pending = !!inputReceivingTx && status === false;
 
   const claim = useClaim();
   const showAlreadyClaimedModal = useCallback(() => {
@@ -145,7 +144,7 @@ export const HistoryItem = ({
   const { symbol: tokenSymbol } =
     enableForeignCurrencyBridge && user === homeCurrencyHelperContract
       ? getNativeCurrency(foreignChainId)
-      : toToken;
+      : toToken ?? {};
 
   return (
     <Flex
@@ -165,7 +164,12 @@ export const HistoryItem = ({
         }}
         w="100%"
       >
-        <Flex align="center" justify="space-between" mb={{ base: 1, md: 0 }}>
+        <Flex
+          align="center"
+          justify="space-between"
+          mb={{ base: 1, md: 0 }}
+          px="2"
+        >
           <Text display={{ base: 'inline-block', md: 'none' }} color="greyText">
             Date
           </Text>
@@ -215,6 +219,7 @@ export const HistoryItem = ({
               rel="noreferrer noopener"
               target="_blank"
               my="auto"
+              title={receivingTx}
               textAlign="center"
             >
               {shortenHash(receivingTx)}
@@ -235,21 +240,20 @@ export const HistoryItem = ({
             <Text my="auto" textAlign="center">
               {`${formatUnits(
                 BigNumber.from(amount),
-                toToken.decimals,
+                toToken?.decimals,
               )} ${tokenSymbol}`}
             </Text>
-            <AddToMetamask token={toToken} ml="0.25rem" />
           </Flex>
         </Flex>
         {claimed ? (
           <Flex align="center" justify={{ base: 'center', md: 'flex-end' }}>
-            {failed ? (
+            {pending ? (
               <CloseIcon color="red.500" boxSize="0.75rem" pb="0.1rem" />
             ) : (
               <CheckIcon color="blue.500" boxSize="0.75rem" />
             )}
-            <Text ml="0.25rem" color={failed ? 'red.500' : 'blue.500'}>
-              {failed ? 'Failed' : 'Claimed'}
+            <Text ml="0.25rem" color={pending ? 'red.500' : 'blue.500'}>
+              {pending ? 'Pending' : 'Filled'}
             </Text>
           </Flex>
         ) : (

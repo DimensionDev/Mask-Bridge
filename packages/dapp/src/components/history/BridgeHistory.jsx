@@ -1,4 +1,4 @@
-import { Checkbox, Flex, Grid, Text } from '@chakra-ui/react';
+import { Flex, Grid, Text } from '@chakra-ui/react';
 import { HistoryItem } from 'components/history/HistoryItem';
 import { HistoryPagination } from 'components/history/HistoryPagination';
 import { NoHistory } from 'components/history/NoHistory';
@@ -19,7 +19,6 @@ import { Redirect } from 'react-router-dom';
 const TOTAL_PER_PAGE = 20;
 
 export const BridgeHistory = ({ page }) => {
-  const [onlyUnReceived, setOnlyUnReceived] = useState(false);
   const [claimErrorShow, setClaimErrorShow] = useState(false);
   const [claimErrorToken, setClaimErrorToken] = useState(null);
   const { foreignChainId } = useBridgeDirection();
@@ -44,9 +43,7 @@ export const BridgeHistory = ({ page }) => {
     );
   }
 
-  const filteredTransfers = onlyUnReceived
-    ? transfers.filter(i => i.receivingTx === null)
-    : transfers;
+  const filteredTransfers = transfers;
 
   const numPages = Math.ceil(filteredTransfers.length / TOTAL_PER_PAGE);
   const displayHistory = filteredTransfers.slice(
@@ -87,16 +84,6 @@ export const BridgeHistory = ({ page }) => {
         <Text fontSize="xl" fontWeight="bold">
           History
         </Text>
-        <Checkbox
-          isChecked={onlyUnReceived}
-          onChange={e => setOnlyUnReceived(e.target.checked)}
-          borderColor="grey"
-          borderRadius="4px"
-          size="lg"
-          variant="solid"
-        >
-          <Text fontSize="sm">Show only unreceived</Text>
-        </Checkbox>
       </Flex>
 
       {displayHistory.length > 0 ? (

@@ -79,7 +79,7 @@ export const TermsOfServiceModal = () => {
                 }
                 <Link
                   as="a"
-                  href="/Mask-Bridge/terms-of-service.txt"
+                  href="/terms-of-service.txt"
                   color="blue.500"
                   isExternal
                 >

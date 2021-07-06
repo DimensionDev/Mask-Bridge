@@ -79,7 +79,7 @@ export const TermsOfServiceModal = () => {
                 }
                 <Link
                   as="a"
-                  href="https://forum.poa.network/t/end-user-licensing-agreement-and-terms-of-service/2197"
+                  href="/Mask-Bridge/terms-of-service.txt"
                   color="blue.500"
                   isExternal
                 >

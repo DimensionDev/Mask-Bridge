@@ -77,6 +77,7 @@ const KOVAN_SOKOL_BRIDGE_CONFIG = {
 
 const ETH_BSC_BRIDGE_CONFIG = {
   unit: 'ETH',
+  confirmations: 3,
   label: 'eth⇀bsc',
   homeChainId: 56,
   foreignChainId: 1,
@@ -95,6 +96,7 @@ const ETH_BSC_BRIDGE_CONFIG = {
 
 const BSC_ETH_BRIDGE_CONFIG = {
   unit: 'BNB',
+  confirmations: 6,
   label: 'bsc⇀eth',
   homeChainId: 1,
   foreignChainId: 56,

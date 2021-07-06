@@ -19,7 +19,7 @@ export const Layout = ({ children }) => {
   const isQueryChainProvided =
     queryToken === null || providerChainId === queryToken.chainId;
 
-  const bridgeSelectorVisible = location.pathname === '/bridge';
+  const bridgeSelectorVisible = account && location.pathname === '/bridge';
 
   const valid = useMemo(
     () =>
@@ -53,7 +53,7 @@ export const Layout = ({ children }) => {
         position="relative"
       >
         <Flex direction="column">
-          {account && bridgeSelectorVisible ? (
+          {bridgeSelectorVisible ? (
             <Flex maxW="75rem" w="100%" justifyContent="flex-end" p="1rem">
               <BridgeDropdown />
             </Flex>

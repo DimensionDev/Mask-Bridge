@@ -13,13 +13,7 @@ import { BigNumber, utils } from 'ethers';
 import { useBridgeDirection } from 'hooks/useBridgeDirection';
 import { useClaim } from 'hooks/useClaim';
 import { isRevertedError, TOKENS_CLAIMED } from 'lib/amb';
-import {
-  getExplorerUrl,
-  getHelperContract,
-  getNativeCurrency,
-  handleWalletError,
-  logError,
-} from 'lib/helpers';
+import { getExplorerUrl, handleWalletError, logError } from 'lib/helpers';
 import React, { useCallback, useState } from 'react';
 
 const { formatUnits } = utils;
@@ -56,7 +50,6 @@ const getNetworkTag = chainId => networkTags[chainId];
 
 export const HistoryItem = ({
   data: {
-    user,
     chainId,
     timestamp,
     sendingTx,
@@ -68,8 +61,7 @@ export const HistoryItem = ({
   },
   handleClaimError,
 }) => {
-  const { foreignChainId, getBridgeChainId, enableForeignCurrencyBridge } =
-    useBridgeDirection();
+  const { getBridgeChainId } = useBridgeDirection();
   const bridgeChainId = getBridgeChainId(chainId);
 
   const timestampString = new Date(
@@ -139,12 +131,6 @@ export const HistoryItem = ({
     setTxHash,
     showAlreadyClaimedModal,
   ]);
-
-  const homeCurrencyHelperContract = getHelperContract(foreignChainId);
-  const { symbol: tokenSymbol } =
-    enableForeignCurrencyBridge && user === homeCurrencyHelperContract
-      ? getNativeCurrency(foreignChainId)
-      : toToken ?? {};
 
   return (
     <Flex
@@ -239,10 +225,7 @@ export const HistoryItem = ({
           </Text>
           <Flex>
             <Text my="auto" textAlign="center">
-              {`${formatUnits(
-                BigNumber.from(amount),
-                toToken?.decimals,
-              )} ${tokenSymbol}`}
+              {`${formatUnits(BigNumber.from(amount), toToken?.decimals)} MASK`}
             </Text>
           </Flex>
         </Flex>

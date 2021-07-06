@@ -51,7 +51,8 @@ export const TransferButton = () => {
     !isRebaseToken &&
     !showReverseBridgeWarning &&
     !toAmountLoading &&
-    amount &&
+    !amount.isZero() &&
+    !amount.isNegative() &&
     amount.lte(balance);
 
   const valid = useCallback(() => {

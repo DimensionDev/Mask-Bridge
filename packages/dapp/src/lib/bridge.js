@@ -82,3 +82,10 @@ export const relayTokens = async (
     overrides,
   );
 };
+
+export const getBridgeFee = async (ethersProvider, address) => {
+  const abi = ['uint256 public swapFee'];
+  const contract = new Contract(address, abi, ethersProvider);
+  const swapFee = await contract.swapFee();
+  return swapFee;
+};

@@ -35,6 +35,7 @@ import { ReverseWarning } from 'components/warnings/ReverseWarning';
 import { useBridgeContext } from 'contexts/BridgeContext';
 import { useWeb3Context } from 'contexts/Web3Context';
 import { useBridgeDirection } from 'hooks/useBridgeDirection';
+import { getBridgeFee } from 'lib/bridge';
 import { ADDRESS_ZERO } from 'lib/constants';
 import {
   formatValue,
@@ -42,16 +43,11 @@ import {
   getNetworkLabel,
   handleWalletError,
 } from 'lib/helpers';
-import { BSC_XDAI_BRIDGE, networks } from 'lib/networks';
-import React, { useCallback, useState } from 'react';
-
-const getFee = bridgeDirection => {
-  const config = networks[bridgeDirection];
-  return config.fee;
-};
+import { BSC_XDAI_BRIDGE } from 'lib/networks';
+import React, { useCallback, useEffect, useState } from 'react';
 
 export const ConfirmTransferModal = ({ isOpen, onClose }) => {
-  const { isGnosisSafe, account } = useWeb3Context();
+  const { isGnosisSafe, account, ethersProvider } = useWeb3Context();
 
   const { homeChainId, foreignChainId, enableReversedBridge, bridgeDirection } =
     useBridgeDirection();
@@ -63,6 +59,10 @@ export const ConfirmTransferModal = ({ isOpen, onClose }) => {
     useState(false);
   const [isGnosisSafeWarningChecked, setGnosisSafeWarningChecked] =
     useState(false);
+  const [bridgeFee, setBridgeFee] = useState('');
+  useEffect(() => {
+    getBridgeFee(ethersProvider, fromToken.mediator).then(setBridgeFee);
+  }, [ethersProvider, fromToken.mediator, setBridgeFee]);
 
   const toast = useToast();
   const showError = useCallback(
@@ -198,7 +198,7 @@ export const ConfirmTransferModal = ({ isOpen, onClose }) => {
               </Flex>
             </Flex>
             <Flex align="center" fontSize="sm" justify="center" mt={4}>
-              {`Bridge Fees ${getFee(bridgeDirection)}`}
+              {`Bridge Fees ${bridgeFee}`}
             </Flex>
             <Divider color="#DAE3F0" my={4} />
             <Box w="100%" fontSize="sm" color={isHome ? 'black' : 'grey'}>

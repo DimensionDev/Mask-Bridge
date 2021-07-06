@@ -61,8 +61,12 @@ export const ConfirmTransferModal = ({ isOpen, onClose }) => {
     useState(false);
   const [bridgeFee, setBridgeFee] = useState('');
   useEffect(() => {
-    getBridgeFee(ethersProvider, fromToken.mediator).then(setBridgeFee);
-  }, [ethersProvider, fromToken.mediator, setBridgeFee]);
+    if (fromToken) {
+      getBridgeFee(ethersProvider, fromToken.mediator).then(fee => {
+        setBridgeFee(formatValue(fee, fromToken.decimals));
+      });
+    }
+  }, [ethersProvider, fromToken, setBridgeFee]);
 
   const toast = useToast();
   const showError = useCallback(

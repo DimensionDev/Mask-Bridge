@@ -52,9 +52,9 @@ export const Layout = ({ children }) => {
         h="100%"
         position="relative"
       >
-        <Flex direction="column">
+        <Flex direction="column" align="center">
           {bridgeSelectorVisible ? (
-            <Flex maxW="75rem" w="100%" justifyContent="flex-end" p="1rem">
+            <Flex maxW="75rem" w="100%" justifyContent="flex-end" py="1rem">
               <BridgeDropdown />
             </Flex>
           ) : null}

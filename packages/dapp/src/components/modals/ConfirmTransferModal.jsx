@@ -26,7 +26,6 @@ import {
   InflationaryTokenWarning,
   isInflationaryToken,
 } from 'components/warnings/InflationaryTokenWarning';
-import { MedianGasWarning } from 'components/warnings/MedianGasWarning';
 import { NeedsTransactionsWarning } from 'components/warnings/NeedsTransactionsWarning';
 import {
   isRebasingToken,
@@ -229,13 +228,6 @@ export const ConfirmTransferModal = ({ isOpen, onClose }) => {
           </ModalBody>
           <ModalFooter p={6} flexDirection="column">
             {isHome && <NeedsTransactionsWarning noShadow />}
-            {foreignChainId === 1 && medianGasPrice.lt(currentGasPrice) && (
-              <MedianGasWarning
-                medianPrice={medianGasPrice}
-                currentPrice={currentGasPrice}
-                noShadow
-              />
-            )}
             {isERC20Dai && <DaiWarning noShadow />}
             {showReverseBridgeWarning && <ReverseWarning noShadow />}
             {showBinancePeggedAssetWarning && (

@@ -71,9 +71,9 @@ export const Footer = () => {
           textAlign={smallScreen ? 'center' : 'inherit'}
         >
           Forked from{' '}
-          <Link href="https://omni.xdaichain.com/" rel="noopener noreferrer">
+          <a href="https://omni.xdaichain.com/" rel="noopener noreferrer">
             OmniBridge
-          </Link>
+          </a>
         </Text>
       </Flex>
     </>

@@ -48,14 +48,12 @@ export const Layout = ({ children }) => {
         h="100%"
         position="relative"
       >
-        <Flex direction="column">
-          {account ? (
-            <Flex w="100%" justifyContent="flex-end" p="1rem">
-              <BridgeDropdown />
-            </Flex>
-          ) : null}
-          {valid ? children : <ConnectWeb3 />}
-        </Flex>
+        {account ? (
+          <Flex maxW="75rem" w="100%" justifyContent="flex-end" p="1rem">
+            <BridgeDropdown />
+          </Flex>
+        ) : null}
+        {valid ? children : <ConnectWeb3 />}
       </Flex>
       <Footer />
       <TermsOfServiceModal />

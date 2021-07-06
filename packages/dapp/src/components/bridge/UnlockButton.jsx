@@ -26,7 +26,8 @@ export const UnlockButton = () => {
     isRebaseToken ||
     toAmountLoading ||
     amount.lte(0) ||
-    balance.lte(0);
+    balance.lte(0) ||
+    amount.gt(balance);
   const toast = useToast();
   const showError = useCallback(
     msg => {

@@ -91,7 +91,7 @@ export const TermsOfServiceModal = () => {
           </ModalBody>
           <ModalFooter>
             <Flex justify="center" align="center" w="100%">
-              <Button onClick={onClose} colorScheme="blue">
+              <Button onClick={onClose} colorScheme="blue" autoFocus>
                 Continue
               </Button>
             </Flex>

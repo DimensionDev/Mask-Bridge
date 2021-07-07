@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 import memoize from 'fast-memoize';
 import { LOCAL_STORAGE_KEYS } from 'lib/constants';
 import { getNetworkLabel, getRPCUrl, logError } from 'lib/helpers';
-import { storage } from 'utils';
+import { session, storage } from 'utils';
 
 const {
   MAINNET_RPC_URL,
@@ -55,9 +55,9 @@ export const getEthersProvider = async chainId => {
     localRPCUrl?.length > 0 ? [localRPCUrl, ...currentRPCUrls] : currentRPCUrls;
 
   const provider =
-    (await checkRPCHealth(sessionStorage.getItem(sessionHealthyURL))) ||
+    (await checkRPCHealth(session.get(sessionHealthyURL))) ||
     (await Promise.all(rpcURLs.map(checkRPCHealth))).filter(p => !!p)[0];
-  sessionStorage.setItem(sessionHealthyURL, provider.connection.url);
+  session.set(sessionHealthyURL, provider.connection.url);
   return provider || null;
 };
 

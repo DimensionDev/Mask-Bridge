@@ -20,12 +20,6 @@ import { useTransactionStatus } from 'hooks/useTransactionStatus';
 import { chainUrls } from 'lib/constants';
 import React, { useEffect, useState } from 'react';
 
-const getTransactionString = hash => {
-  if (!hash) return 'here';
-  const len = hash.length;
-  return `${hash.substr(0, 6)}...${hash.substr(len - 4, len - 1)}`;
-};
-
 const BridgeLoader = ({
   loading,
   loadingText,
@@ -101,16 +95,13 @@ const BridgeLoader = ({
                     {`${loadingText || 'Waiting for Block Confirmations'}...`}
                   </Text>
                   <Text width="100%" color="grey">
-                    {`Monitor at ${
-                      chainUrls[fromToken.chainId]?.explorerName ?? ''
-                    } `}
                     <Link
                       href={getExplorerUrl(fromToken.chainId, txHash)}
                       rel="noreferrer noopener"
                       target="_blank"
                       color="blue.500"
                     >
-                      {getTransactionString(txHash)}
+                      Monitor at {chainUrls[fromToken.chainId]?.explorerName}
                     </Link>
                   </Text>
                 </Flex>

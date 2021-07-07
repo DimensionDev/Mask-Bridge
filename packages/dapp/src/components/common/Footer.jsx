@@ -4,7 +4,6 @@ import { MediumIcon } from 'icons/MediumIcon';
 import { TelegramIcon } from 'icons/TelegramIcon';
 import { TwitterIcon } from 'icons/TwitterIcon';
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 export const Footer = () => {
   const smallScreen = useBreakpointValue({ base: true, sm: false });
@@ -20,9 +19,9 @@ export const Footer = () => {
         color="grey"
       >
         {!smallScreen && (
-          <Link to="/" display={{ base: 'none', sm: 'block' }}>
+          <a href="https://mask.io" rel="noreferrer noopener" target="_blank">
             <Text color="darkblue">&copy; 2021 Mask Network</Text>
-          </Link>
+          </a>
         )}
         <HStack spacing={4}>
           <Box _hover={{ color: 'blue.500' }} transition="0.25s">

@@ -81,9 +81,15 @@ export const formatValue = (num, dec) => {
   return Number(str).toLocaleString('en', { maximumFractionDigits: 4 });
 };
 
-export const parseValue = (num, dec) => {
+export const parseValue = (num, dec = 18) => {
   if (!num || isNaN(Number(num))) {
     return BigNumber.from(0);
+  }
+
+  const comps = num.split('.');
+  const [whole, fraction] = comps;
+  if (comps.length === 2 && fraction.length > dec) {
+    return utils.parseUnits(`${whole}.${fraction.slice(0, dec)}`, dec);
   }
   return utils.parseUnits(num, dec);
 };

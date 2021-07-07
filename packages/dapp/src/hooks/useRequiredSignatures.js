@@ -2,6 +2,7 @@ import { getNetworkLabel, logError } from 'lib/helpers';
 import { requiredSignatures as fetchRequiredSignatures } from 'lib/message';
 import { getEthersProvider } from 'lib/providers';
 import { useEffect, useState } from 'react';
+import { session } from 'utils';
 
 export const useRequiredSignatures = (homeChainId, homeAmbAddress) => {
   const [homeRequiredSignatures, setHomeRequiredSignatures] = useState(0);
@@ -16,12 +17,12 @@ export const useRequiredSignatures = (homeChainId, homeAmbAddress) => {
         .then(res => {
           const signatures = Number.parseInt(res.toString(), 10);
           setHomeRequiredSignatures(signatures);
-          sessionStorage.setItem(key, signatures);
+          session.set(key, signatures);
         })
         .catch(versionError => logError({ versionError }));
       setFetching(false);
     };
-    const version = sessionStorage.getItem(key);
+    const version = session.get(key);
     if (!version && !fetching) {
       setFetching(true);
       fetchVersion();

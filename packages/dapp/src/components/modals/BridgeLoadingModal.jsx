@@ -17,6 +17,7 @@ import { useBridgeContext } from 'contexts/BridgeContext';
 import { useWeb3Context } from 'contexts/Web3Context';
 import { useBridgeDirection } from 'hooks/useBridgeDirection';
 import { useTransactionStatus } from 'hooks/useTransactionStatus';
+import { chainUrls } from 'lib/constants';
 import React, { useEffect, useState } from 'react';
 
 const getTransactionString = hash => {
@@ -100,7 +101,9 @@ const BridgeLoader = ({
                     {`${loadingText || 'Waiting for Block Confirmations'}...`}
                   </Text>
                   <Text width="100%" color="grey">
-                    {'Monitor at '}
+                    {`Monitor at ${
+                      chainUrls[fromToken.chainId]?.explorerName ?? ''
+                    } `}
                     <Link
                       href={getExplorerUrl(fromToken.chainId, txHash)}
                       rel="noreferrer noopener"

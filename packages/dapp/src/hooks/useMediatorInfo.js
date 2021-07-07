@@ -12,6 +12,7 @@ export const useMediatorInfo = () => {
   const [feeManagerAddress, setFeeManagerAddress] = useState();
 
   useEffect(() => {
+    /* eslint-disable-next-line */
     const processMediatorData = async () => {
       if (!account) return;
       const ethersProvider = await getEthersProvider(homeChainId);
@@ -53,7 +54,7 @@ export const useMediatorInfo = () => {
         .then(day => setCurrentDay(day))
         .catch(currentDayError => logError({ currentDayError }));
     };
-    processMediatorData();
+    // processMediatorData();
   }, [account, homeMediatorAddress, homeChainId]);
 
   return {

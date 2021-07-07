@@ -1,4 +1,4 @@
-import { Flex, Grid, Text } from '@chakra-ui/react';
+import { Flex, Grid, Text, useBreakpointValue } from '@chakra-ui/react';
 import { HistoryItem } from 'components/history/HistoryItem';
 import { HistoryPagination } from 'components/history/HistoryPagination';
 import { NoHistory } from 'components/history/NoHistory';
@@ -19,6 +19,7 @@ import { Redirect } from 'react-router-dom';
 const TOTAL_PER_PAGE = 20;
 
 export const BridgeHistory = ({ page }) => {
+  const smallScreen = useBreakpointValue({ base: true, sm: false });
   const [claimErrorShow, setClaimErrorShow] = useState(false);
   const [claimErrorToken, setClaimErrorToken] = useState(null);
   const { foreignChainId } = useBridgeDirection();
@@ -61,6 +62,7 @@ export const BridgeHistory = ({ page }) => {
 
   return (
     <Flex
+      minW={smallScreen ? '20rem' : '60rem'}
       maxW="75rem"
       direction="column"
       mt={8}

@@ -80,7 +80,7 @@ export const TermsOfServiceModal = () => {
                 }
                 <Link
                   as="a"
-                  href="/terms-of-service.txt"
+                  href="/Terms-of-Service.html"
                   color="blue.500"
                   isExternal
                 >

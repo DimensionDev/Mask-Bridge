@@ -44,6 +44,10 @@ const web3Modal = new Web3Modal({
   providerOptions,
 });
 
+const clearWCStorage = () => {
+  localStorage.clear('walletconnect');
+};
+
 export const Web3Provider = ({ children }) => {
   const [{ providerChainId, ethersProvider, account }, setWeb3State] = useState(
     {},
@@ -111,11 +115,12 @@ export const Web3Provider = ({ children }) => {
     setLoading(false);
   }, [setWeb3Provider]);
 
-  const disconnect = useCallback(async () => {
+  const disconnect = useCallback(() => {
     web3Modal.clearCachedProvider();
+    clearWCStorage();
     setGnosisSafe(false);
     setWeb3State({});
-  }, []);
+  }, [setWeb3State, setGnosisSafe]);
 
   useEffect(() => {
     if (window.ethereum) {

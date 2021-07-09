@@ -19,8 +19,6 @@ export const Layout = ({ children }) => {
   const isQueryChainProvided =
     queryToken === null || providerChainId === queryToken.chainId;
 
-  const bridgeSelectorVisible = account && location.pathname === '/bridge';
-
   const valid = useMemo(
     () =>
       !!account &&
@@ -29,6 +27,9 @@ export const Layout = ({ children }) => {
       foreignChainId === providerChainId,
     [account, providerChainId, isQueryChainProvided, foreignChainId],
   );
+
+  const bridgeSelectorVisible =
+    account && (location.pathname === '/bridge' || !valid);
 
   return (
     <Flex

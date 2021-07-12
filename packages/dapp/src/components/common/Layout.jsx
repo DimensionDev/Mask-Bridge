@@ -19,14 +19,21 @@ export const Layout = ({ children }) => {
   const isQueryChainProvided =
     queryToken === null || providerChainId === queryToken.chainId;
 
-  const valid = useMemo(
-    () =>
-      !!account &&
-      !!providerChainId &&
-      isQueryChainProvided &&
-      foreignChainId === providerChainId,
-    [account, providerChainId, isQueryChainProvided, foreignChainId],
-  );
+  const valid = useMemo(() => {
+    if (!account || !providerChainId || !isQueryChainProvided) {
+      return false;
+    }
+    if (location.pathname === '/history') {
+      return true;
+    }
+    return foreignChainId === providerChainId;
+  }, [
+    account,
+    providerChainId,
+    isQueryChainProvided,
+    foreignChainId,
+    location.pathname,
+  ]);
 
   const bridgeSelectorVisible =
     account && (location.pathname === '/bridge' || !valid);

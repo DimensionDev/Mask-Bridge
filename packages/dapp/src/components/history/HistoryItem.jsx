@@ -1,4 +1,3 @@
-import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
 import {
   Button,
   Flex,
@@ -9,6 +8,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import RightArrowImage from 'assets/right-arrow.svg';
+import formatDateTime from 'date-fns/format';
 import { BigNumber, utils } from 'ethers';
 import { useBridgeDirection } from 'hooks/useBridgeDirection';
 import { useClaim } from 'hooks/useClaim';
@@ -39,11 +39,8 @@ const Tag = ({ bg, txt }) => (
 );
 
 const networkTags = {
-  100: <Tag bg="#4DA9A6" txt="xDai" />,
   1: <Tag bg="#5A74DA" txt="Ethereum" />,
-  42: <Tag bg="#5A74DA" txt="Kovan" />,
-  77: <Tag bg="#4DA9A6" txt="POA Sokol" />,
-  56: <Tag bg="#5A74DA" txt="BSC" />,
+  56: <Tag bg="#EEB00E" txt="BSC" />,
 };
 
 const getNetworkTag = chainId => networkTags[chainId];
@@ -64,15 +61,10 @@ export const HistoryItem = ({
   const { getBridgeChainId } = useBridgeDirection();
   const bridgeChainId = getBridgeChainId(chainId);
 
-  const timestampString = new Date(
-    parseInt(timestamp, 10) * 1000,
-  ).toLocaleTimeString([], {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+  const timestampString = formatDateTime(
+    new Date(parseInt(timestamp, 10) * 1000),
+    'yyyy/MM/dd HH:mm:ss',
+  );
 
   const toast = useToast();
   const showError = useCallback(
@@ -148,6 +140,7 @@ export const HistoryItem = ({
           md: '0.5fr 1.75fr 1fr 1fr 1.25fr 0.5fr',
           lg: '1fr 1.25fr 1fr 1fr 1.25fr 0.5fr',
         }}
+        fontWeight="bold"
         w="100%"
       >
         <Flex
@@ -225,19 +218,16 @@ export const HistoryItem = ({
           </Text>
           <Flex>
             <Text my="auto" textAlign="center">
-              {`${formatUnits(BigNumber.from(amount), toToken?.decimals)} MASK`}
+              {`${parseFloat(
+                formatUnits(BigNumber.from(amount), toToken?.decimals),
+              ).toFixed(4)} MASK`}
             </Text>
           </Flex>
         </Flex>
         {claimed ? (
           <Flex align="center" justify={{ base: 'center', md: 'flex-end' }}>
-            {pending ? (
-              <CloseIcon color="red.500" boxSize="0.75rem" pb="0.1rem" />
-            ) : (
-              <CheckIcon color="blue.500" boxSize="0.75rem" />
-            )}
-            <Text ml="0.25rem" color={pending ? 'red.500' : 'blue.500'}>
-              {pending ? 'Pending' : 'Filled'}
+            <Text ml="0.25rem" color={pending ? '#FFA959' : '#45B36B'}>
+              {pending ? 'Pending' : 'Success'}
             </Text>
           </Flex>
         ) : (

@@ -69,17 +69,22 @@ export const uniqueTokens = list => {
   });
 };
 
+export const floorDecimals = (decimals, length) => {
+  const re = new RegExp(`(\\d+\\.\\d{${length}})\\d*$`);
+  return decimals.replace(re, '$1');
+};
+
 export const formatValue = (num, dec) => {
   const str = utils.formatUnits(num, dec);
   if (str.length > 50) {
-    const expStr = Number(str).toExponential().replace(/e\+?/, ' x 10^');
+    const expStr = Number(str)
+      .toExponential()
+      .replace(/e\+?/, ' x 10^');
     const split = expStr.split(' x 10^');
-    const first = Number(split[0]).toLocaleString('en', {
-      maximumFractionDigits: 4,
-    });
+    const first = floorDecimals(split[0], 4);
     return `${first} x 10^${split[1]}`;
   }
-  return Number(str).toLocaleString('en', { maximumFractionDigits: 4 });
+  return floorDecimals(str, 4);
 };
 
 export const parseValue = (num, dec = 18) => {
@@ -193,8 +198,9 @@ export const getHelperContract = chainId =>
 
 export const getMediatorAddressWithoutOverride = (bridgeDirection, chainId) => {
   if (!bridgeDirection || !chainId) return null;
-  const { homeChainId, homeMediatorAddress, foreignMediatorAddress } =
-    networks[bridgeDirection];
+  const { homeChainId, homeMediatorAddress, foreignMediatorAddress } = networks[
+    bridgeDirection
+  ];
   return homeChainId === chainId
     ? homeMediatorAddress.toLowerCase()
     : foreignMediatorAddress.toLowerCase();

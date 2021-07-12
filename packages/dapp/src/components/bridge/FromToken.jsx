@@ -140,6 +140,7 @@ export const FromToken = () => {
                   color="grey"
                   textAlign="right"
                   fontSize={{ base: 'md', lg: 'sm', '2xl': 'md' }}
+                  title={utils.formatUnits(balance, token.decimals)}
                   {...(smallScreen
                     ? {}
                     : { position: 'absolute', bottom: '4px', right: 0 })}

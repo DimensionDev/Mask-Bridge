@@ -1,20 +1,10 @@
-import {
-  Button,
-  Flex,
-  Grid,
-  Image,
-  Link,
-  Text,
-  useToast,
-} from '@chakra-ui/react';
+import { Flex, Grid, Image, Link, Text } from '@chakra-ui/react';
 import RightArrowImage from 'assets/right-arrow.svg';
 import formatDateTime from 'date-fns/format';
 import { BigNumber, utils } from 'ethers';
 import { useBridgeDirection } from 'hooks/useBridgeDirection';
-import { useClaim } from 'hooks/useClaim';
-import { isRevertedError, TOKENS_CLAIMED } from 'lib/amb';
-import { getExplorerUrl, handleWalletError, logError } from 'lib/helpers';
-import React, { useCallback, useState } from 'react';
+import { getExplorerUrl } from 'lib/helpers';
+import React from 'react';
 
 const { formatUnits } = utils;
 
@@ -66,63 +56,8 @@ export const HistoryItem = ({
     'yyyy/MM/dd HH:mm:ss',
   );
 
-  const toast = useToast();
-  const showError = useCallback(
-    msg => {
-      if (msg) {
-        toast({
-          title: 'Error',
-          description: msg,
-          status: 'error',
-          isClosable: 'true',
-        });
-      }
-    },
-    [toast],
-  );
-
-  const [claimed, setClaimed] = useState(!!inputReceivingTx);
-  const [claiming, setClaiming] = useState(false);
-  const [txHash, setTxHash] = useState();
-  let receivingTx = inputReceivingTx;
-  if (claimed && txHash) {
-    receivingTx = txHash;
-  }
-  const pending = !!inputReceivingTx && status === false;
-
-  const claim = useClaim();
-  const showAlreadyClaimedModal = useCallback(() => {
-    handleClaimError(toToken);
-  }, [toToken, handleClaimError]);
-
-  const claimTokens = useCallback(async () => {
-    try {
-      setClaiming(true);
-      const tx = await claim(sendingTx, message);
-      setTxHash(tx.hash);
-      await tx.wait();
-      setClaimed(true);
-    } catch (claimError) {
-      logError({ claimError });
-      if (
-        claimError.message === TOKENS_CLAIMED ||
-        isRevertedError(claimError)
-      ) {
-        showAlreadyClaimedModal();
-      } else {
-        handleWalletError(claimError, showError);
-      }
-    } finally {
-      setClaiming(false);
-    }
-  }, [
-    claim,
-    sendingTx,
-    message,
-    showError,
-    setTxHash,
-    showAlreadyClaimedModal,
-  ]);
+  const receivingTx = inputReceivingTx;
+  const pending = !inputReceivingTx || status === false;
 
   return (
     <Flex
@@ -224,25 +159,11 @@ export const HistoryItem = ({
             </Text>
           </Flex>
         </Flex>
-        {claimed ? (
-          <Flex align="center" justify={{ base: 'center', md: 'flex-end' }}>
-            <Text ml="0.25rem" color={pending ? '#FFA959' : '#45B36B'}>
-              {pending ? 'Pending' : 'Success'}
-            </Text>
-          </Flex>
-        ) : (
-          <Flex align="center" justify={{ base: 'center', md: 'flex-end' }}>
-            <Button
-              w="100%"
-              size="sm"
-              colorScheme="blue"
-              onClick={claimTokens}
-              isLoading={claiming}
-            >
-              Claim
-            </Button>
-          </Flex>
-        )}
+        <Flex align="center" justify={{ base: 'center', md: 'flex-end' }}>
+          <Text ml="0.25rem" color={pending ? '#FFA959' : '#45B36B'}>
+            {pending ? 'Pending' : 'Success'}
+          </Text>
+        </Flex>
       </Grid>
     </Flex>
   );

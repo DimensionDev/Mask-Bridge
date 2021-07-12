@@ -88,7 +88,7 @@ export const BridgeDropdown = ({ close = () => {} }) => {
               setModalVisible(true);
             }}
           >
-            ETH-Matic
+            ETH⥊Matic
           </MenuItem>
         </MenuList>
       </Menu>

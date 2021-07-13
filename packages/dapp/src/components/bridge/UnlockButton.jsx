@@ -87,6 +87,7 @@ export const UnlockButton = () => {
     });
   }, [unlockLoading, buttonDisabled, valid, showError, approve]);
 
+  const loadingCursor = toAmountLoading ? 'wait' : 'not-allowed';
   return (
     <Flex
       align="center"
@@ -99,7 +100,7 @@ export const UnlockButton = () => {
               color: 'primary',
             }
       }
-      cursor={buttonDisabled ? 'not-allowed' : 'pointer'}
+      cursor={buttonDisabled ? loadingCursor : 'pointer'}
       transition="0.25s"
       position="relative"
       opacity={buttonDisabled ? 0.4 : 1}

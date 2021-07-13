@@ -96,6 +96,7 @@ export const TransferButton = () => {
       onOpen();
     }
   };
+  const loadingCursor = toAmountLoading ? 'wait' : 'not-allowed';
 
   return (
     <Flex
@@ -110,7 +111,7 @@ export const TransferButton = () => {
               color: 'blue.500',
             }
       }
-      cursor={!buttonEnabled ? 'not-allowed' : 'pointer'}
+      cursor={!buttonEnabled ? loadingCursor : 'pointer'}
       transition="0.25s"
       position="relative"
       opacity={!buttonEnabled ? 0.4 : 1}

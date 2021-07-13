@@ -13,7 +13,7 @@ export const ProgressRing = ({ radius, stroke, progress, totalProgress }) => {
         fill="transparent"
         strokeWidth={stroke}
         strokeDasharray={`${circumference} ${circumference}`}
-        style={{ strokeDashoffset }}
+        style={{ strokeDashoffset, transition: 'all 0.3s ease' }}
         r={normalizedRadius}
         cx={radius}
         cy={radius}

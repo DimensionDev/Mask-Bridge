@@ -28,8 +28,8 @@ jobs:
       - name: Build
         run: yarn dapp:build
         env:
-          REACT_APP_DEFAULT_BRIDGE_DIRECTION: eth-bsc
-          REACT_APP_ENABLED_BRIDGES: eth-bsc bsc-eth
+          REACT_APP_DEFAULT_BRIDGE_DIRECTION: bsc-eth
+          REACT_APP_ENABLED_BRIDGES: bsc-eth
           REACT_APP_INFURA_ID: ''
           REACT_APP_GAS_PRICE_FALLBACK_GWEI: 50
           REACT_APP_GAS_PRICE_SUPPLIER_URL: https://gasprice.poa.network/

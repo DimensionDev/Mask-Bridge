@@ -7,6 +7,7 @@ import React from 'react';
 
 export const Footer = () => {
   const smallScreen = useBreakpointValue({ base: true, sm: false });
+  const year = new Date().getFullYear();
   return (
     <>
       <Flex
@@ -20,7 +21,7 @@ export const Footer = () => {
       >
         {!smallScreen && (
           <a href="https://mask.io" rel="noreferrer noopener" target="_blank">
-            <Text color="darkblue">&copy; 2021 Mask Network</Text>
+            <Text color="darkblue">&copy; {year} Mask Network</Text>
           </a>
         )}
         <HStack spacing={4}>

@@ -170,6 +170,7 @@ export const FromToken = () => {
               variant="unstyled"
               type="number"
               value={input}
+              disabled
               placeholder="0.0"
               textAlign="left"
               fontWeight="bold"

@@ -22,10 +22,12 @@ import { networks } from 'lib/networks';
 import React, { useCallback, useEffect, useState } from 'react';
 
 const MATIC_BRIDGE_LINK = 'https://wallet.matic.network/bridge';
+const MATCH_NETWORK = 'Matic/Polygon Network';
+const BNB_BRIDGE_LINK = 'https://cbridge.celer.network/';
+const BNB_NETWORK = 'BNB Network';
 export const BridgeDropdown = ({ close = () => {} }) => {
   const { bridgeDirection, setBridgeDirection } = useSettings();
   const placement = useBreakpointValue({ base: 'top', md: 'top-end' });
-  const [modalVisible, setModalVisible] = useState(false);
 
   const setItem = useCallback(
     e => {
@@ -34,6 +36,11 @@ export const BridgeDropdown = ({ close = () => {} }) => {
     },
     [close, setBridgeDirection],
   );
+  const [bridgeState, setBridgeState] = useState({
+    visible: true,
+    network: BNB_NETWORK,
+    link: BNB_BRIDGE_LINK,
+  });
 
   const networkOptions = Object.keys(networks);
   const isValidNetwork = networkOptions.indexOf(bridgeDirection) >= 0;
@@ -65,19 +72,22 @@ export const BridgeDropdown = ({ close = () => {} }) => {
           </Text>
         </MenuButton>
         <MenuList border="none" boxShadow="0 0.5rem 1rem #CADAEF" zIndex="3">
-          {Object.entries(networks).map(([key, { label }]) => (
-            <MenuItem
-              value={key}
-              onClick={setItem}
-              key={key}
-              textTransform="uppercase"
-              fontWeight="700"
-              fontSize="sm"
-              justifyContent="center"
-            >
-              {label}
-            </MenuItem>
-          ))}
+          <MenuItem
+            value="eth-bsc"
+            textTransform="uppercase"
+            fontWeight="700"
+            fontSize="sm"
+            justifyContent="center"
+            onClick={() => {
+              setBridgeState({
+                visible: true,
+                link: BNB_BRIDGE_LINK,
+                network: BNB_NETWORK,
+              });
+            }}
+          >
+            ETH⥊BSC
+          </MenuItem>
           <MenuItem
             key="eth-matic"
             textTransform="uppercase"
@@ -85,7 +95,11 @@ export const BridgeDropdown = ({ close = () => {} }) => {
             fontSize="sm"
             justifyContent="center"
             onClick={() => {
-              setModalVisible(true);
+              setBridgeState({
+                visible: true,
+                link: MATIC_BRIDGE_LINK,
+                network: MATCH_NETWORK,
+              });
             }}
           >
             ETH⥊Matic
@@ -94,8 +108,8 @@ export const BridgeDropdown = ({ close = () => {} }) => {
       </Menu>
 
       <Modal
-        isOpen={modalVisible}
-        onClose={() => setModalVisible(false)}
+        isOpen={bridgeState.visible}
+        onClose={() => setBridgeState(v => ({ ...v, visible: false }))}
         closeOnEsc
         closeOnOverlayClick
         isCentered
@@ -114,14 +128,14 @@ export const BridgeDropdown = ({ close = () => {} }) => {
             <ModalBody>
               <Text color="#7B8192" fontSize={18}>
                 Confirm to enter the website for bridging assets provided by
-                Matic/Polygon Network{' '}
+                {bridgeState.network}{' '}
                 <Link
-                  href={MATIC_BRIDGE_LINK}
+                  href={bridgeState.link}
                   rel="noopener noreferrer"
                   target="_blank"
                   color="#2b3bbc"
                 >
-                  {MATIC_BRIDGE_LINK}
+                  {bridgeState.link}
                 </Link>
               </Text>
             </ModalBody>
@@ -134,8 +148,8 @@ export const BridgeDropdown = ({ close = () => {} }) => {
                 borderRadius="20px"
                 onClick={() => {
                   const newTab = window.open();
-                  newTab.location = MATIC_BRIDGE_LINK;
-                  setModalVisible(false);
+                  newTab.location = bridgeState.link;
+                  setBridgeState(v => ({ ...v, visible: false }));
                 }}
               >
                 Confirm

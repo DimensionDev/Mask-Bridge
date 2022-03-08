@@ -47,6 +47,7 @@ export const TransferButton = () => {
     toToken.chainId === foreignChainId &&
     toToken.address === ADDRESS_ZERO;
   const buttonEnabled =
+    false &&
     allowed &&
     !isRebaseToken &&
     !showReverseBridgeWarning &&
@@ -115,6 +116,7 @@ export const TransferButton = () => {
       transition="0.25s"
       position="relative"
       opacity={!buttonEnabled ? 0.4 : 1}
+      disabled
       onClick={onClick}
       borderRadius="0.25rem"
       w={{ base: '10rem', sm: '12rem', lg: 'auto' }}

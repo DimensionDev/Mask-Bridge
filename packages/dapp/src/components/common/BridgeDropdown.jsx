@@ -24,7 +24,7 @@ import React, { useEffect, useState } from 'react';
 const MATIC_BRIDGE_LINK = 'https://wallet.matic.network/bridge';
 const MATCH_NETWORK = 'Matic/Polygon Network';
 const BNB_BRIDGE_LINK = 'https://cbridge.celer.network/';
-const BNB_NETWORK = 'BNB Network';
+const CELER_NETWORK = 'Celer Network';
 
 export const BridgeDropdown = () => {
   const { bridgeDirection, setBridgeDirection } = useSettings();
@@ -32,7 +32,7 @@ export const BridgeDropdown = () => {
 
   const [bridgeState, setBridgeState] = useState({
     visible: true,
-    network: BNB_NETWORK,
+    network: CELER_NETWORK,
     link: BNB_BRIDGE_LINK,
   });
 
@@ -76,7 +76,7 @@ export const BridgeDropdown = () => {
               setBridgeState({
                 visible: true,
                 link: BNB_BRIDGE_LINK,
-                network: BNB_NETWORK,
+                network: CELER_NETWORK,
               });
             }}
           >
@@ -121,7 +121,7 @@ export const BridgeDropdown = () => {
             <ModalCloseButton />
             <ModalBody>
               <Text color="#7B8192" fontSize={18}>
-                Confirm to enter the website for bridging assets provided by
+                Confirm to enter the website for bridging assets provided by{' '}
                 {bridgeState.network}{' '}
                 <Link
                   href={bridgeState.link}

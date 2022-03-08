@@ -19,23 +19,17 @@ import { useSettings } from 'contexts/SettingsContext';
 import { DownArrowIcon } from 'icons/DownArrowIcon';
 import { NetworkIcon } from 'icons/NetworkIcon';
 import { networks } from 'lib/networks';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const MATIC_BRIDGE_LINK = 'https://wallet.matic.network/bridge';
 const MATCH_NETWORK = 'Matic/Polygon Network';
 const BNB_BRIDGE_LINK = 'https://cbridge.celer.network/';
 const BNB_NETWORK = 'BNB Network';
-export const BridgeDropdown = ({ close = () => {} }) => {
+
+export const BridgeDropdown = () => {
   const { bridgeDirection, setBridgeDirection } = useSettings();
   const placement = useBreakpointValue({ base: 'top', md: 'top-end' });
 
-  const setItem = useCallback(
-    e => {
-      setBridgeDirection(e.target.value, true);
-      close();
-    },
-    [close, setBridgeDirection],
-  );
   const [bridgeState, setBridgeState] = useState({
     visible: true,
     network: BNB_NETWORK,
